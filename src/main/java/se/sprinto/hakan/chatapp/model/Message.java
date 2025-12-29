@@ -1,19 +1,29 @@
 package se.sprinto.hakan.chatapp.model;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "messages")
 public class Message {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private User user;
-    private String text;
-    private LocalDateTime timestamp;
+    private String content;
 
-    public Message(User user, String text, LocalDateTime timestamp) {
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    /*private String text;
+    private LocalDateTime timestamp;*/
+
+    /*public Message(User user, String text, LocalDateTime timestamp) {
         this.user = user;
         this.text = text;
         this.timestamp = timestamp;
-    }
+    }*/
 
     public Message(){
 
@@ -27,6 +37,14 @@ public class Message {
         this.id = id;
     }
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public User getUser() {
         return user;
     }
@@ -35,7 +53,7 @@ public class Message {
         this.user = user;
     }
 
-    public String getText() {
+    /*public String getText() {
         return text;
     }
 
@@ -49,5 +67,5 @@ public class Message {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-    }
+    }*/
 }
