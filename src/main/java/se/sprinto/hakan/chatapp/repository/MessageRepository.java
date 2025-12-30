@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {
 //    Message save(Message message);
-//    List<Message> findByUserId(Long userId);
+    List<Message> findByUserId(Long userId);
 }
 
 

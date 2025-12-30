@@ -16,14 +16,14 @@ public class Message {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    /*private String text;
-    private LocalDateTime timestamp;*/
+    private String text;
+    private LocalDateTime timestamp;
 
-    /*public Message(User user, String text, LocalDateTime timestamp) {
+    public Message(User user, String text, LocalDateTime timestamp) {
         this.user = user;
         this.text = text;
         this.timestamp = timestamp;
-    }*/
+    }
 
     public Message(){
 
@@ -53,7 +53,7 @@ public class Message {
         this.user = user;
     }
 
-    /*public String getText() {
+    public String getText() {
         return text;
     }
 
@@ -67,5 +67,5 @@ public class Message {
 
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
-    }*/
+    }
 }
