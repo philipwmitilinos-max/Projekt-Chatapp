@@ -22,7 +22,7 @@ class MessageServiceTest {
     MessageService messageService;
 
     @Test
-    void saveMessage_callsRepositorySave() {
+    void saveMessageCallsRepositorySave() {
         Message message = mock(Message.class);
 
         messageService.save(message);

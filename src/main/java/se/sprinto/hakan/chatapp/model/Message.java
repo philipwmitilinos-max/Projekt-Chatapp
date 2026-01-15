@@ -11,12 +11,14 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
+    //private String content;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
+    @Column(nullable = false)
     private LocalDateTime timestamp;
 
     public Message(User user, String text, LocalDateTime timestamp) {
@@ -37,13 +39,13 @@ public class Message {
         this.id = id;
     }
 
-    public String getContent() {
+    /*public String getContent() {
         return content;
     }
 
     public void setContent(String content) {
         this.content = content;
-    }
+    }*/
 
     public User getUser() {
         return user;

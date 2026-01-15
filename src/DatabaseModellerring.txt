@@ -1,0 +1,62 @@
+Konceptuell
+
+Entiteter
+
+User
+Message
+
+=================================================
+Attribut
+
+User
+-id
+-username
+-password
+
+Message
+-id
+-text
+-timestamp
+
+=================================================
+Relationer
+
+User 1-* Message
+
+Message *-1 User
+
+=================================================
+Logisk
+
+Users
+-id (PK)
+-username (UNIQUE)
+-password
+
+Messages
+-id (PK)
+-text
+-timestamp
+-user_id (FK -> users.id)
+
+=================================================
+Fysisk
+
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE messages (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    text TEXT NOT NULL,
+    timestamp DATETIME,
+    user_id BIGINT,
+    CONSTRAINT fk_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+=================================================

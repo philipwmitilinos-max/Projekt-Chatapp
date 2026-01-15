@@ -22,21 +22,21 @@ class UserServiceTest {
     UserService userService;
 
     @Test
-    void login_returnsUser_whenCredentialsAreCorrect() {
-        User user = new User("chatuser", "password");
+    void loginReturnsUserWhenCredentialsAreCorrect() {
+        User user = new User("jim", "1234");
 
-        when(userRepository.findByUsernameAndPassword("chatuser", "password"))
+        when(userRepository.findByUsernameAndPassword("jim", "1234"))
                 .thenReturn(user);
 
-        User result = userService.login("chatuser", "password");
+        User result = userService.login("jim", "1234");
 
         assertNotNull(result);
-        assertEquals("chatuser", result.getUsername());
-        verify(userRepository).findByUsernameAndPassword("chatuser", "password");
+        assertEquals("jim", result.getUsername());
+        verify(userRepository).findByUsernameAndPassword("jim", "1234");
     }
 
     @Test
-    void register_callsRepositorySave() {
+    void registerCallsRepositorySave() {
         User user = new User("newuser", "secret");
 
         when(userRepository.save(user)).thenReturn(user);
