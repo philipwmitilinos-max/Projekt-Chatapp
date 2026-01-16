@@ -1,5 +1,6 @@
 package se.sprinto.hakan.chatapp.service;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -21,9 +22,15 @@ class UserServiceTest {
     @InjectMocks
     UserService userService;
 
+    User user;
+
+    @BeforeEach
+    void setUp() {
+        user = new User("jim", "1234");
+    }
+    //Testar när User och Password är rätt.
     @Test
     void loginReturnsUserWhenCredentialsAreCorrect() {
-        User user = new User("jim", "1234");
 
         when(userRepository.findByUsernameAndPassword("jim", "1234"))
                 .thenReturn(user);
@@ -34,10 +41,20 @@ class UserServiceTest {
         assertEquals("jim", result.getUsername());
         verify(userRepository).findByUsernameAndPassword("jim", "1234");
     }
+    //Testar när User och Password är fel.
+    @Test
+    void loginReturnsNullWhenCredentialsAreWrong() {
 
+        when(userRepository.findByUsernameAndPassword("jim", "wrong")).thenReturn(null);
+
+        User result = userService.login("jim", "wrong");
+
+        assertNull(result);
+        verify(userRepository).findByUsernameAndPassword("jim","wrong");
+    }
+    //Testar
     @Test
     void registerCallsRepositorySave() {
-        User user = new User("newuser", "secret");
 
         when(userRepository.save(user)).thenReturn(user);
 
@@ -45,5 +62,17 @@ class UserServiceTest {
 
         assertNotNull(result);
         verify(userRepository).save(user);
+    }
+    //Testar att skapa en ny User.
+    @Test
+    void registerCreatesNewUser() {
+        User user1 = new User("pelle", "key");
+
+        when(userRepository.save(user1)).thenReturn(user1);
+
+        User result = userService.register(user1);
+
+        assertNotNull(result);
+        assertEquals("pelle", result.getUsername());
     }
 }
